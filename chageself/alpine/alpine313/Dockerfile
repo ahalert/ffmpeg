@@ -503,14 +503,20 @@ RUN \
         make install && \
         rm -rf ${DIR}
 
-## Download ffmpeg https://ffmpeg.org/
+# ## Download ffmpeg https://ffmpeg.org/
+# RUN  \
+#         DIR=/tmp/ffmpeg && mkdir -p ${DIR} && cd ${DIR} && \
+#         curl -sLO https://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.bz2 && \
+#         tar -jx --strip-components=1 -f ffmpeg-${FFMPEG_VERSION}.tar.bz2 && \
+#         ./configure     --disable-debug  --disable-doc    --disable-ffplay   --enable-shared --enable-gpl  --extra-libs=-ldl && \
+#         make ;  make install
 RUN  \
-        DIR=/tmp/ffmpeg && mkdir -p ${DIR} && cd ${DIR} && \
-        curl -sLO https://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.bz2 && \
-        tar -jx --strip-components=1 -f ffmpeg-${FFMPEG_VERSION}.tar.bz2 && \
+        DIR=/tmp/ffmpeg && mkdir -p ${DIR} && \
+        git clone https://github.com/ahalert/ffmpeg_rtmp_v6_h265.git && \
+        mv ffmpeg_rtmp_v6_h265/* ${DIR} && cd ${DIR} && \
+        chmod -R +x ./ && \
         ./configure     --disable-debug  --disable-doc    --disable-ffplay   --enable-shared --enable-gpl  --extra-libs=-ldl && \
-        make ;  make install
-
+        make -j$(nproc);  make install
 
 
 
