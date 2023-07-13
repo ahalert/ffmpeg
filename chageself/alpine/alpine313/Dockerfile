@@ -589,8 +589,6 @@ RUN \
 
 ### Release Stage
 FROM        base AS release
-LABEL       org.opencontainers.image.authors="julien@rottenberg.info" \
-            org.opencontainers.image.source=https://github.com/jrottenberg/ffmpeg
 
 ENV         LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64
 
@@ -599,6 +597,6 @@ ENV         LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64
 
 COPY --from=build /usr/local /usr/local
 
-CMD ["/bin/sh"] 
+CMD ["/bin/sh"]
 # Let's make sure the app built correctly
 # Convenient to verify on https://hub.docker.com/r/jrottenberg/ffmpeg/builds/ console output
